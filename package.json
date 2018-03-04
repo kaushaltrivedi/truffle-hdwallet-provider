@@ -23,14 +23,16 @@
     "url": "https://github.com/trufflesuite/truffle-hdwallet-provider/issues"
   },
   "homepage": "https://github.com/trufflesuite/truffle-hdwallet-provider#readme",
+  "bundleDependencies": [
+    "bitcore-lib"
+  ],
   "dependencies": {
     "bip39": "^2.2.0",
+    "bitcore-lib": "0.14.0",
     "bitcore-ecies": "^1.0.3",
     "ethereumjs-wallet": "^0.6.0",
     "web3": "^0.18.2",
     "web3-provider-engine": "^8.4.0"
   },
-  "peerDependencies": {
-    "bitcore-lib": "0.14.0"
-  }
+  "peerDependencies": {}
 }
