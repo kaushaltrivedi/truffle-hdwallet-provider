@@ -25,6 +25,7 @@
   "homepage": "https://github.com/trufflesuite/truffle-hdwallet-provider#readme",
   "dependencies": {
     "bip39": "^2.2.0",
+    "bitcore-lib": "^0.15.0",
     "bitcore-ecies": "^1.0.3",
     "ethereumjs-wallet": "^0.6.0",
     "web3": "^0.18.2",
