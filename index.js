@@ -94,28 +94,28 @@ HDWalletProvider.prototype.getAddresses = function() {
 HDWalletProvider.prototype.getWallet = function() {
   return {
     privateKey: this.wallets[this.addresses[0]].getPrivateKey().toString("hex"),
-    publicKey: this.wallets[this.addresses[0]].getPrivateKey().toString("hex")
+    publicKey: this.wallets[this.addresses[0]].getPublicKey().toString("hex")
   };
 };
 
 HDWalletProvider.prototype.encrypt = function(data) {
-  const publicKey = new PublicKey(this.getWallet().publicKey);
   const privateKey = new PrivateKey(this.getWallet().privateKey);
+  const publicKey = new PublicKey(privateKey);
   let ecies = ECIES()
     .publicKey(publicKey)
     .privateKey(privateKey);
 
-  return ecies.encrypt(data);
+  return ecies.encrypt(data).toString("hex");
 };
 
 HDWalletProvider.prototype.decrypt = function(encryptedData) {
-  const publicKey = new PublicKey(this.getWallet().publicKey);
   const privateKey = new PrivateKey(this.getWallet().privateKey);
-  let ecies = ECIES()
-    .publicKey(publicKey)
-    .privateKey(privateKey);
 
-  return ecies.decrypt(encryptedData);
+  let ecies = ECIES().privateKey(privateKey);
+
+  var decryptMe = new Buffer(encryptedData, "hex");
+
+  return ecies.decrypt(decryptMe).toString("utf8");
 };
 
 module.exports = HDWalletProvider;
