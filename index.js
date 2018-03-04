@@ -99,6 +99,10 @@ HDWalletProvider.prototype.getWallet = function() {
   };
 };
 
+HDWalletProvider.prototype.getPublicKey = function() {
+  return this.wallets[this.addresses[0]].getPublicKey().toString("hex");
+};
+
 HDWalletProvider.prototype.encrypt = function(data, publicKey) {
   const privateKey = new PrivateKey(this.getWallet().privateKey);
   let _publicKey;
