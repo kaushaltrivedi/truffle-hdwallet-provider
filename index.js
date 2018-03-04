@@ -88,7 +88,7 @@ HDWalletProvider.prototype.getAddresses = function() {
   return this.addresses;
 };
 
-let getWallet = function() {
+HDWalletProvider.prototype.getWallet = function() {
   return {
     privateKey: this.wallets[this.addresses[0]].getPrivateKey().toString("hex"),
     publicKey: this.wallets[this.addresses[0]].getPrivateKey().toString("hex")
