@@ -23,9 +23,6 @@
     "url": "https://github.com/trufflesuite/truffle-hdwallet-provider/issues"
   },
   "homepage": "https://github.com/trufflesuite/truffle-hdwallet-provider#readme",
-  "bundleDependencies": [
-    "bitcore-lib"
-  ],
   "dependencies": {
     "bip39": "^2.2.0",
     "bitcore-lib": "0.14.0",

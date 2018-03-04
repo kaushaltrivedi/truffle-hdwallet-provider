@@ -1,3 +1,6 @@
+const ECIES = require("bitcore-ecies");
+delete global._bitcore;
+const bitcore = require("bitcore-lib");
 var bip39 = require("bip39");
 var hdkey = require("ethereumjs-wallet/hdkey");
 var ProviderEngine = require("web3-provider-engine");
@@ -7,8 +10,6 @@ var Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
 var Web3 = require("web3");
 var Transaction = require("ethereumjs-tx");
 
-const ECIES = require("bitcore-ecies");
-const bitcore = require("bitcore-lib");
 let PrivateKey = bitcore.PrivateKey;
 let PublicKey = bitcore.PublicKey;
 
@@ -98,11 +99,17 @@ HDWalletProvider.prototype.getWallet = function() {
   };
 };
 
-HDWalletProvider.prototype.encrypt = function(data) {
+HDWalletProvider.prototype.encrypt = function(data, publicKey) {
   const privateKey = new PrivateKey(this.getWallet().privateKey);
-  const publicKey = new PublicKey(privateKey);
+  const _publicKey;
+  if (publicKey) {
+    _publicKey = new PublicKey(publicKey);
+  } else {
+    _publicKey = new PublicKey(privateKey);
+  }
+  
   let ecies = ECIES()
-    .publicKey(publicKey)
+    .publicKey(_publicKey)
     .privateKey(privateKey);
 
   return ecies.encrypt(data).toString("hex");
