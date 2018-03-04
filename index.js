@@ -114,7 +114,7 @@ HDWalletProvider.prototype.decrypt = async function(encryptedData) {
   const privateKey = new PrivateKey(getWallet().privateKey);
   let ecies = ECIES().publicKey(privateKey);
 
-  return ecies.decrypt(encryptedData);
+  return ecies.decrypt(encryptedData).toString();
 };
 
 module.exports = HDWalletProvider;
