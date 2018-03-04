@@ -7,6 +7,8 @@ var Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
 var Web3 = require("web3");
 var Transaction = require("ethereumjs-tx");
 
+const EthCrypto = require("eth-crypto");
+
 function HDWalletProvider(
   mnemonic,
   provider_url,
@@ -86,8 +88,23 @@ HDWalletProvider.prototype.getAddresses = function() {
   return this.addresses;
 };
 
-HDWalletProvider.prototype.getWallet = function() {
-  return this.wallets[this.addresses[0]];
+let getWallet = function() {
+  return {
+    privateKey: this.wallets[this.addresses[0]].getPrivateKey().toString("hex"),
+    publicKey: this.wallets[this.addresses[0]].getPrivateKey().toString("hex")
+  };
+};
+
+HDWalletProvider.prototype.encrypt = async function(data) {
+  const encrypted = await EthCrypto.encryptWithPublicKey(getWallet().publicKey);
+  return encrypted;
+};
+
+HDWalletProvider.prototype.decrypt = async function(encryptedData) {
+  const decrypted = await EthCrypto.decryptWithPrivateKey(
+    getWallet().privateKey
+  );
+  return decrypted;
 };
 
 module.exports = HDWalletProvider;
