@@ -7,8 +7,8 @@ var Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
 var Web3 = require("web3");
 var Transaction = require("ethereumjs-tx");
 
-const bitcore = require("bitcore-lib");
 const ECIES = require("bitcore-ecies");
+const bitcore = require("bitcore-lib");
 let PrivateKey = bitcore.PrivateKey;
 let PublicKey = bitcore.PublicKey;
 
@@ -114,7 +114,7 @@ HDWalletProvider.prototype.decrypt = async function(encryptedData) {
   const privateKey = new PrivateKey(getWallet().privateKey);
   let ecies = ECIES().publicKey(privateKey);
 
-  return ecies.decrypt(encryptedData).toString();
+  return ecies.decrypt(encryptedData);
 };
 
 module.exports = HDWalletProvider;
