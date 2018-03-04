@@ -10,17 +10,23 @@
     "type": "git",
     "url": "git+https://github.com/trufflesuite/truffle-hdwallet-provider.git"
   },
-  "keywords": ["etheruem", "hd", "wallet", "mnemonic", "provider"],
+  "keywords": [
+    "etheruem",
+    "hd",
+    "wallet",
+    "mnemonic",
+    "provider"
+  ],
   "author": "Tim Coulter <tim.coulter@consensys.net>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/trufflesuite/truffle-hdwallet-provider/issues"
   },
-  "homepage":
-    "https://github.com/trufflesuite/truffle-hdwallet-provider#readme",
+  "homepage": "https://github.com/trufflesuite/truffle-hdwallet-provider#readme",
   "dependencies": {
     "bip39": "^2.2.0",
-    "eth-crypto": "^0.2.0",
+    "bitcore-ecies": "^1.0.3",
+    "bitcore-lib": "^0.15.0",
     "ethereumjs-wallet": "^0.6.0",
     "web3": "^0.18.2",
     "web3-provider-engine": "^8.4.0"

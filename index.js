@@ -7,7 +7,10 @@ var Web3Subprovider = require("web3-provider-engine/subproviders/web3.js");
 var Web3 = require("web3");
 var Transaction = require("ethereumjs-tx");
 
-const EthCrypto = require("eth-crypto");
+const bitcore = require("bitcore-lib");
+const ECIES = require("bitcore-ecies");
+let PrivateKey = bitcore.PrivateKey;
+let PublicKey = bitcore.PublicKey;
 
 function HDWalletProvider(
   mnemonic,
@@ -95,16 +98,23 @@ HDWalletProvider.prototype.getWallet = function() {
   };
 };
 
-HDWalletProvider.prototype.encrypt = async function(data) {
-  const encrypted = await EthCrypto.encryptWithPublicKey(getWallet().publicKey);
-  return encrypted;
+HDWalletProvider.prototype.encrypt = function(data) {
+  // const encrypted = await EthCrypto.encryptWithPublicKey(
+  //   getWallet().publicKey,
+  //   data
+  // );
+
+  const publicKey = new PublicKey(getWallet().publicKey);
+  let ecies = ECIES().publicKey(publicKey);
+
+  return ecies.encrypt(data);
 };
 
 HDWalletProvider.prototype.decrypt = async function(encryptedData) {
-  const decrypted = await EthCrypto.decryptWithPrivateKey(
-    getWallet().privateKey
-  );
-  return decrypted;
+  const privateKey = new PrivateKey(getWallet().privateKey);
+  let ecies = ECIES().publicKey(privateKey);
+
+  return ecies.decrypt(encryptedData);
 };
 
 module.exports = HDWalletProvider;
