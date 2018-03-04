@@ -86,7 +86,7 @@ HDWalletProvider.prototype.getAddresses = function() {
   return this.addresses;
 };
 
-HDWalletProvider.prototype.getWallet = () => {
+HDWalletProvider.prototype.getWallet = function() {
   return this.wallets[this.addresses[0]];
 };
 
