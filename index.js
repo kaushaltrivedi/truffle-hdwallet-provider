@@ -99,20 +99,21 @@ HDWalletProvider.prototype.getWallet = function() {
 };
 
 HDWalletProvider.prototype.encrypt = function(data) {
-  // const encrypted = await EthCrypto.encryptWithPublicKey(
-  //   getWallet().publicKey,
-  //   data
-  // );
-
-  const publicKey = new PublicKey(getWallet().publicKey);
-  let ecies = ECIES().publicKey(publicKey);
+  const publicKey = new PublicKey(this.getWallet().publicKey);
+  const privateKey = new PrivateKey(this.getWallet().privateKey);
+  let ecies = ECIES()
+    .publicKey(publicKey)
+    .privateKey(privateKey);
 
   return ecies.encrypt(data);
 };
 
-HDWalletProvider.prototype.decrypt = async function(encryptedData) {
-  const privateKey = new PrivateKey(getWallet().privateKey);
-  let ecies = ECIES().publicKey(privateKey);
+HDWalletProvider.prototype.decrypt = function(encryptedData) {
+  const publicKey = new PublicKey(this.getWallet().publicKey);
+  const privateKey = new PrivateKey(this.getWallet().privateKey);
+  let ecies = ECIES()
+    .publicKey(publicKey)
+    .privateKey(privateKey);
 
   return ecies.decrypt(encryptedData);
 };
