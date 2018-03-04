@@ -101,13 +101,13 @@ HDWalletProvider.prototype.getWallet = function() {
 
 HDWalletProvider.prototype.encrypt = function(data, publicKey) {
   const privateKey = new PrivateKey(this.getWallet().privateKey);
-  const _publicKey;
+  let _publicKey;
   if (publicKey) {
     _publicKey = new PublicKey(publicKey);
   } else {
     _publicKey = new PublicKey(privateKey);
   }
-  
+
   let ecies = ECIES()
     .publicKey(_publicKey)
     .privateKey(privateKey);
